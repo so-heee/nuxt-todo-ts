@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
+import {Configuration} from '@nuxt/types'
 import webpack from 'webpack'
 
 export default {
@@ -18,7 +19,14 @@ export default {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'stylesheet',
+        href:
+          'https://fonts.googleapis.com/css?family=Permanent+Marker|Damion&display=swap" rel="stylesheet'
+      }
+    ]
   },
   /*
    ** Customize the progress-bar color
@@ -44,7 +52,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: [],
+  modules: ['@nuxtjs/dotenv'],
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
@@ -52,7 +60,7 @@ export default {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
           primary: colors.blue.darken2,
@@ -84,9 +92,6 @@ export default {
       }
     },
     plugins: [
-      new webpack.ProvidePlugin({
-        _: 'lodash'
-      })
     ]
   },
   typescript: {

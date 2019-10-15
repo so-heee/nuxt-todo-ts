@@ -11,13 +11,11 @@
   </v-app>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      title: 'TodoList'
-    }
-  }
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+@Component
+export default class detault extends Vue {
+  title: string = 'TodoList'
 }
 </script>
 

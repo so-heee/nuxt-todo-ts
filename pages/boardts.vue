@@ -1,12 +1,5 @@
 <template>
   <v-container class="todo">
-    <v-form ref="form">
-      <v-row>
-        <v-col cols="12" md="12">
-          <task-detail></task-detail>
-        </v-col>
-      </v-row>
-    </v-form>
     <task-list title="Todo" :tasklist="todolist"></task-list>
     <task-list title="Done" :tasklist="donelist"></task-list>
   </v-container>

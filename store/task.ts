@@ -1,44 +1,47 @@
+import orderBy from 'lodash/orderBy'
 import { firestoreAction } from 'vuexfire'
 import firebase from '../plugins/firebase'
 
 const db = firebase.firestore()
 const taskRef = db.collection('task')
 
+interface task {
+  title: string,
+  detail: string,
+  date: string,
+  status: boolean,
+  id: string
+}
+
+interface State {
+  tasks: task[]
+}
+
 export const state = () => ({
   tasks: []
 })
 
 export const actions = {
-  // 初期化
   init: firestoreAction(({ bindFirestoreRef }) => {
     bindFirestoreRef('tasks', taskRef)
   }),
-  // 追加
-  add: firestoreAction((context, { title, detail, date }) => {
-    if (title.trim()) {
-      taskRef.add({
-        title,
-        detail,
-        date,
-        status: false
-      })
+  add: firestoreAction((context, task: task) => {
+    if (task.title.trim()) {
+      taskRef.add(task)
     }
   }),
-  // 削除
-  remove: firestoreAction((context, id) => {
+  remove: firestoreAction((context, id: string) => {
     taskRef.doc(id).delete()
   }),
-  // ステータス更新
-  toggle: firestoreAction((context, todo) => {
-    taskRef.doc(todo.id).update({
-      status: !todo.status
+  toggle: firestoreAction((context, task: task) => {
+    taskRef.doc(task.id).update({
+      status: !task.status
     })
   })
 }
 
-// 日付の昇順でソート
 export const getters = {
-  orderdTodos: (state: any) => {
-    return state.tasks
+  orderdTodos: (state: State) => {
+    return orderBy(state.tasks, 'date', 'asc')
   }
 }

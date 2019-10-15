@@ -58,27 +58,26 @@
   </v-dialog>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      title: '',
-      detail: '',
-      dialog: false,
-      date: new Date().toISOString().substr(0, 10),
-      menu: false,
-      modal: false
-    }
-  },
-  methods: {
-    add() {
-      this.$store.dispatch('task/add', {
-        title: this.title,
-        detail: this.detail,
-        date: this.date
-      })
-      this.dialog = false
-    }
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+
+@Component
+export default class TaskDetail extends Vue {
+  title: string = ''
+  detail: string = ''
+  dialog: boolean = false
+  date: string = new Date().toISOString().substr(0, 10)
+  menu: boolean = false
+  modal: boolean = false
+
+  add() {
+    this.$store.dispatch('task/add', {
+      title: this.title,
+      detail: this.detail,
+      date: this.date,
+      status: false
+    })
+    this.dialog = false
   }
 }
 </script>

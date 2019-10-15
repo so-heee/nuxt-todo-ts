@@ -39,25 +39,23 @@
   </v-row>
 </template>
 
-<script>
-export default {
-  props: {
-    title: {
-      type: String,
-      default: ''
-    },
-    tasklist: {
-      type: Array,
-      default: null
-    }
-  },
-  methods: {
-    remove(id) {
-      this.$store.dispatch('task/remove', id)
-    },
-    toggle(task) {
-      this.$store.dispatch('task/toggle', task)
-    }
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator'
+
+@Component
+export default class TaskList extends Vue {
+  @Prop({ default: '' })
+  title!: string
+
+  @Prop({ default: null })
+  tasklist!: Array<Object>
+
+  remove(id: string) {
+    this.$store.dispatch('task/remove', id)
+  }
+
+  toggle(task: Array<Object>) {
+    this.$store.dispatch('task/toggle', task)
   }
 }
 </script>
